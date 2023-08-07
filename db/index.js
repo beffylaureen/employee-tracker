@@ -12,9 +12,24 @@ function start(){
   inquirer.prompt([
     {
       type: 'list',
-      name: 'options',
+      name: 'option',
       message: 'What would you like to do?',
-      choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role']
+      choices: [
+      'View all departments', 
+      'View all roles', 
+      'View all employees', 
+      'Add a department', 
+      'Add a role', 
+      'Add an employee', 
+      'Update an employee role', 
+      'Update an employee manager', 
+      'View employees by manager', 
+      'View employees by department',
+      'Delete department',
+      'Delete role',
+      'Delete employee',
+      'View a department budget',
+      ]
     }
   ]).then( response => {
     switch(response.option){
@@ -23,8 +38,26 @@ function start(){
           displayAllDepartments(rows);
           start();
         });
-      });
-      break;
+        break;
+
+      case "View all roles":
+        viewAllRoles().then( ([rows]) => {
+          displayAllRoles(rows);
+          start();
+        });
+        break;
+
+      case "View all employees":
+        viewAllEmployees().then( ([rows]) => {
+          displayallEmployees(rows);
+          start();
+        });
+        break;
+
+      case "Add a department":
+
+
+        }
 
     default:
       start();
