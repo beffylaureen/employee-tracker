@@ -19,7 +19,7 @@ VALUES
   ("stylist", 8500.00, 1),
   ("pastry chef", 8000, 4);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
+INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES
   ("Bruce","Wayne", ),
   ("Dick", "Grayson", ),
