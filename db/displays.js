@@ -5,6 +5,6 @@ function displayAllDepartments(data){
   console.table(data);
 }
 
-module exports = {
+module.exports = {
   displayAllDepartments
 }
