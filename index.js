@@ -139,8 +139,8 @@ function start() {
         createRole(answer.title);
         console.log(`Added Role ${answer.title}`);
         start();
-    }
-
+      )},
+  }
     function addEmployee() {
       inquirer.prompt([
         {
@@ -168,41 +168,39 @@ function start() {
         createEmployee(answer.employee);
         console.log(`Added Employee ${answer.employee}`);
         start();
-    }
+    },
 
     function updateEmployeeRole() {
 
-    }
+    },
 
     function viewEmpByManager() {
 
-    }
+    },
 
     function viewEmpByDept() {
 
-    }
+    },
 
     function deleteDept() {
 
-    }
+    },
 
     function deleteRole() {
 
-    }
+    },
 
     function deleteEmp() {
 
-    }
+    },
 
     function viewDeptBudget() {
 
-    }
+    },
    
-  }
+  
 
 
 
   )
-}
-
-start();
+  })
