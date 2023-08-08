@@ -5,7 +5,7 @@ const fs = require('fs');
 const connection = require("./db/connection");
 require ("console.table") 
 const { listAllDepartments,
-  listAllRoles, listAllEmployees, createDepartment
+  listAllRoles, listAllEmployees, createDepartment, createRole, createEmployee
   } = require("./db/queries");
 const { displayAllDepartments } = require("./db/displays");
 
@@ -135,7 +135,10 @@ function start() {
           typs: "input",
           message: "Enter department name"
         },
-      ])
+      ]).then((answer) => {
+        createRole(answer.title);
+        console.log(`Added Role ${answer.title}`);
+        start();
     }
 
     function addEmployee() {
@@ -161,7 +164,10 @@ function start() {
           message: "Enter the employee's manager "
         },
 
-      ])
+      ]).then((answer) => {
+        createEmployee(answer.employee);
+        console.log(`Added Employee ${answer.employee}`);
+        start();
     }
 
     function updateEmployeeRole() {
