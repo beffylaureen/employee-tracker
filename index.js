@@ -42,8 +42,7 @@ function start() {
           console.log("\n");
           console.table(rows)
           start();
-        });
-      }
+        });     
         break;
 
       case "View all roles":
@@ -53,7 +52,7 @@ function start() {
           console.table (rows)
           start();
         });
-        break;
+        //break;
 
       case "View all employees":
         listAllEmployees().then(([rows]) => {
@@ -119,89 +118,90 @@ function start() {
       })
     }
 
-    //function addRole() {
-      //inquirer.prompt([
-        //{
-          //name: "roleTitle",
-          //type: "input",
-          //message: "Enter title of new role"
-        //},
-        //{
-          //name: "salary",
-          //type: "input",
-          //message: "Enter salary"
-        //},
-        //{
-  //         name: "department",
-  //         typs: "input",
-  //         message: "Enter department name"
-  //       },
-  //     ]).then((answer) => {
-  //       createRole(answer.title);
-  //       console.log(`Added Role ${answer.title}`);
-  //       start();
-  //     )},
-  // }
-  //   function addEmployee() {
-  //     inquirer.prompt([
-  //       {
-  //         name: "firstName",
-  //         type: "input",
-  //         message: "Enter employee's first name "
-  //       },
-  //       {
-  //         name: "lastName",
-  //         type: "input",
-  //         message: "Enter employee's last name "
-  //       },
-  //       {
-  //         name: "role",
-  //         type: "input",
-  //         message: "Enter the employee's role "
-  //       },
-  //       {
-  //         name: "manager",
-  //         type: "input",
-  //         message: "Enter the employee's manager "
-  //       },
+    function addRole() {
+      inquirer.prompt([
+        {
+          name: "roleTitle",
+          type: "input",
+          message: "Enter title of new role"
+        },
+        {
+          name: "salary",
+          type: "input",
+          message: "Enter salary"
+        },
+        {
+          name: "department",
+          typs: "input",
+          message: "Enter department name"
+        },
+      ]).then((answer) => {
+        createRole(answer.title);
+        console.log(`Added Role ${answer.title}`);
+        start();
+      },
+  
+    function addEmployee() {
+      inquirer.prompt([
+        {
+          name: "firstName",
+          type: "input",
+          message: "Enter employee's first name "
+        },
+        {
+          name: "lastName",
+          type: "input",
+          message: "Enter employee's last name "
+        },
+        {
+          name: "role",
+          type: "input",
+          message: "Enter the employee's role "
+        },
+        {
+          name: "manager",
+          type: "input",
+          message: "Enter the employee's manager "
+        },
 
-  //     ]).then((answer) => {
-  //       createEmployee(answer.employee);
-  //       console.log(`Added Employee ${answer.employee}`);
-  //       start();
-  //   },
+      ]).then((answer) => {
+        createEmployee(answer.employee);
+        console.log(`Added Employee ${answer.employee}`);
+        start();
+    },
 
-  //   function updateEmployeeRole() {
+    function updateEmployeeRole() {
 
-  //   },
+    },
 
-  //   function viewEmpByManager() {
+    function viewEmpByManager() {
 
-  //   },
+    },
 
-  //   function viewEmpByDept() {
+    function viewEmpByDept() {
 
-  //   },
+    },
 
-  //   function deleteDept() {
+    function deleteDept() {
 
-  //   },
+    },
 
-  //   function deleteRole() {
+    function deleteRole() {
 
-  //   },
+    },
 
-  //   function deleteEmp() {
+    function deleteEmp() {
 
-  //   },
+    },
 
-  //   function viewDeptBudget() {
+    function viewDeptBudget() {
 
-  //   },
+    },
    
   
 
 
 
-  // )
-  // })
+  )
+  start();
+})}})}
