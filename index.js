@@ -8,6 +8,13 @@ const { listAllDepartments,
   listAllRoles, listAllEmployees, createDepartment, createRole, createEmployee
   } = require("./db/queries");
 const { displayAllDepartments } = require("./db/displays");
+//const employees = data.map(({ id, first_name, last_name}) => ({ name: first_name + " " + last_name, value: id}));
+
+
+
+
+
+
 
 // TODO: Create an array of questions within a function for user input
 
@@ -52,7 +59,7 @@ function start() {
           console.table (rows)
           start();
         });
-        //break;
+        break;
 
       case "View all employees":
         listAllEmployees().then(([rows]) => {
@@ -171,6 +178,15 @@ function start() {
     },
 
     function updateEmployeeRole() {
+      inquirer.prompt()[
+        {
+          name: "name",
+          type: "list",
+          message: "Which employee would you like to update?",
+          choices: employees
+    
+        }
+      ]
 
     },
 
@@ -203,5 +219,6 @@ function start() {
 
 
   )
-  start();
+
 })}})}
+start();
