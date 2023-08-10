@@ -8,7 +8,7 @@ function listAllRoles(){
   return connection.promise().query("SELECT role.id, role.title, role.salary, department.name AS department FROM role LEFT JOIN department ON role.department_id = department.id;");
 }
 function listAllEmployees(){
-  return connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id;")
+  return connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON manager.id=employee.manager_id;")
 }
 
 function createDepartment(department){
@@ -16,11 +16,11 @@ function createDepartment(department){
 }
 
 function createRole(role){
-  return connection.promise().query("INSERT INTO role SET ?", title, salary, department);
+  return connection.promise().query("INSERT INTO role SET ?", role);
 }
 
 function createEmployee(employee){
-  return connection.promose().query("INSERT INTO employee SET ?", first_name, last_name, role, manager);
+  return connection.promose().query("INSERT INTO employee SET ?", employee);
 }
 module.exports = {
   listAllDepartments,

@@ -3,18 +3,12 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const connection = require("./db/connection");
-require ("console.table") 
+require("console.table")
 const { listAllDepartments,
   listAllRoles, listAllEmployees, createDepartment, createRole, createEmployee
-  } = require("./db/queries");
+} = require("./db/queries");
 const { displayAllDepartments } = require("./db/displays");
 //const employees = data.map(({ id, first_name, last_name}) => ({ name: first_name + " " + last_name, value: id}));
-
-
-
-
-
-
 
 // TODO: Create an array of questions within a function for user input
 
@@ -49,14 +43,14 @@ function start() {
           console.log("\n");
           console.table(rows)
           start();
-        });     
+        });
         break;
 
       case "View all roles":
         listAllRoles().then(([rows]) => {
           // displayAllRoles(rows);
           console.log("\n");
-          console.table (rows)
+          console.table(rows)
           start();
         });
         break;
@@ -65,7 +59,7 @@ function start() {
         listAllEmployees().then(([rows]) => {
           //displayAllEmployees(rows);
           console.log("\n");
-          console.table (rows)
+          console.table(rows)
           start();
         });
         break;
@@ -111,114 +105,163 @@ function start() {
         break;
     }
 
-    function addDepartment() {
-      inquirer.prompt([
-        {
-          name: "departmentName",
-          type: "input",
-          message: "Enter new department name"
-        },
-      ]).then((answer) => {
-        createDepartment(answer.departmentName);
-        console.log(`Added Department ${answer.departmentName}`);
-        start();
-      })
+  })
+
+}
+
+function addDepartment() {
+  inquirer.prompt([
+    {
+      name: "departmentName",
+      type: "input",
+      message: "Enter new department name"
+    },
+  ]).then((answer) => {
+    let dept = {
+      name: answer.departmentName
     }
+    createDepartment(dept);
+    console.log(`Added Department ${answer.departmentName}`);
+    start();
+  })
+}
 
-    function addRole() {
-      inquirer.prompt([
-        {
-          name: "roleTitle",
-          type: "input",
-          message: "Enter title of new role"
-        },
-        {
-          name: "salary",
-          type: "input",
-          message: "Enter salary"
-        },
-        {
-          name: "department",
-          typs: "input",
-          message: "Enter department name"
-        },
-      ]).then((answer) => {
-        createRole(answer.title);
-        console.log(`Added Role ${answer.title}`);
-        start();
+function addRole() {
+
+  listAllDepartments().then(([depts]) => {
+
+    const deptOptions = depts.map(({ id, department }) => ({
+      name: department,
+      value: id
+    }))
+
+    inquirer.prompt([
+      {
+        name: "roleTitle",
+        type: "input",
+        message: "Enter title of new role"
       },
-  
-    function addEmployee() {
-      inquirer.prompt([
-        {
-          name: "firstName",
-          type: "input",
-          message: "Enter employee's first name "
-        },
-        {
-          name: "lastName",
-          type: "input",
-          message: "Enter employee's last name "
-        },
-        {
-          name: "role",
-          type: "input",
-          message: "Enter the employee's role "
-        },
-        {
-          name: "manager",
-          type: "input",
-          message: "Enter the employee's manager "
-        },
+      {
+        name: "salary",
+        type: "input",
+        message: "Enter salary"
+      },
+      {
+        name: "department",
+        type: "list",
+        message: "Enter department name",
+        choices: deptOptions
+      },
+    ]).then((answer) => {
+      let newRole = {
+        "title" : answer.roleTitle, 
+        "salary" : answer.salary,
+        "department_id" : answer.department
+      }
+      createRole(newRole);
+      console.log(`Added Role ${newRole}`);
+      start();
+    })
 
-      ]).then((answer) => {
-        createEmployee(answer.employee);
-        console.log(`Added Employee ${answer.employee}`);
-        start();
-    },
+  })
 
-    function updateEmployeeRole() {
-      inquirer.prompt()[
-        {
-          name: "name",
-          type: "list",
-          message: "Which employee would you like to update?",
-          choices: employees
-    
-        }
-      ]
+}
 
-    },
 
-    function viewEmpByManager() {
+function addEmployee() {
 
-    },
+  listAllRoles().then(([roles]) => {
 
-    function viewEmpByDept() {
+    const roleOptions = roles.map(({ id, title }) => ({
+      name: title,
+      value: id
+    }))
 
-    },
+    listAllEmployees().then(([employees]) => {
 
-    function deleteDept() {
-
-    },
-
-    function deleteRole() {
-
-    },
-
-    function deleteEmp() {
-
-    },
-
-    function viewDeptBudget() {
-
-    },
-   
-  
+      const managerOptions = employees.map(({ id, first_name, last_name }) => ({
+        name: `${first_name} ${last_name}`,
+        value: id
+      }))
 
 
 
-  )
 
-})}})}
+    inquirer.prompt([
+      {
+        name: "firstName",
+        type: "input",
+        message: "Enter employee's first name "
+      },
+      {
+        name: "lastName",
+        type: "input",
+        message: "Enter employee's last name "
+      },
+      {
+        name: "role",
+        type: "list",
+        message: "Enter the employee's role ",
+        choices: roleOptions
+      },
+      {
+        name: "manager",
+        type: "list",
+        message: "Enter the employee's manager ",
+        choices: managerOptions
+      },
+
+    ]).then((answer) => {
+
+      let newEmployee = {
+
+      }
+
+      createEmployee(newEmployee);
+      console.log(`Added Employee ${newEmployee}`);
+      start();
+    })
+
+  })
+
+})
+}
+
+function updateEmployeeRole() {
+  inquirer.prompt()[
+    {
+      name: "name",
+      type: "list",
+      message: "Which employee would you like to update?",
+      choices: employees
+
+    }
+  ]
+
+}
+
+function viewEmpByManager() {
+
+}
+
+function viewEmpByDept() {
+
+}
+
+function deleteDept() {
+
+}
+
+function deleteRole() {
+
+}
+
+function deleteEmp() {
+
+}
+
+function viewDeptBudget() {
+
+}
+
 start();
