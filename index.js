@@ -26,13 +26,13 @@ function start() {
         'Add a role',
         'Add an employee',
         'Update an employee role',
-        'Update an employee manager',
-        'View employees by manager',
-        'View employees by department',
-        'Delete department',
-        'Delete role',
-        'Delete employee',
-        'View a department budget',
+        // 'Update an employee manager',
+        // 'View employees by manager',
+        // 'View employees by department',
+        // 'Delete department',
+        // 'Delete role',
+        // 'Delete employee',
+        // 'View a department budget',
       ]
     }
   ]).then(response => {
@@ -80,30 +80,8 @@ function start() {
         updateEmployeeRole();
         break;
 
-      case "View employees by manager":
-        viewEmpByManager();
-        break;
 
-      case "View employees by department":
-        viewEmpByDept();
-        break;
-
-      case "Delete department":
-        deleteDept();
-        break;
-
-      case "Delete role":
-        deleteRole();
-        break;
-
-      case "Delete employee":
-        deleteEmp();
-        break;
-
-      case "View a department budget":
-        viewDeptBudget();
-        break;
-    }
+     }
 
   })
 
@@ -159,7 +137,7 @@ function addRole() {
         "department_id" : answer.department
       }
       createRole(newRole);
-      console.log(`Added Role ${newRole}`);
+      console.log(`Added Role ${answer.newRole}`);
       start();
     })
 
@@ -177,9 +155,9 @@ function addEmployee() {
       value: id
     }))
 
-    listAllEmployees().then(([employees]) => {
+    listAllEmployees().then(([employee]) => {
 
-      const managerOptions = employees.map(({ id, first_name, last_name }) => ({
+      const managerOptions = employee.map(({ id, first_name, last_name, }) => ({
         name: `${first_name} ${last_name}`,
         value: id
       }))
@@ -189,12 +167,12 @@ function addEmployee() {
 
     inquirer.prompt([
       {
-        name: "firstName",
+        name: "first_name",
         type: "input",
         message: "Enter employee's first name "
       },
       {
-        name: "lastName",
+        name: "last_name",
         type: "input",
         message: "Enter employee's last name "
       },
@@ -214,10 +192,15 @@ function addEmployee() {
     ]).then((answer) => {
 
       let newEmployee = {
+        "first_name": answer.first_name,
+        "last_name": answer.last_name,
+        "role_id": answer.role,
+        "manager_id": answer.manager
 
       }
 
       createEmployee(newEmployee);
+  
       console.log(`Added Employee ${newEmployee}`);
       start();
     })
@@ -240,28 +223,8 @@ function updateEmployeeRole() {
 
 }
 
-function viewEmpByManager() {
 
-}
 
-function viewEmpByDept() {
 
-}
-
-function deleteDept() {
-
-}
-
-function deleteRole() {
-
-}
-
-function deleteEmp() {
-
-}
-
-function viewDeptBudget() {
-
-}
 
 start();

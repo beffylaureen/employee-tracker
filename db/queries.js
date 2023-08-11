@@ -20,7 +20,7 @@ function createRole(role){
 }
 
 function createEmployee(employee){
-  return connection.promose().query("INSERT INTO employee SET ?", employee);
+  return connection.promise().query("INSERT INTO employee SET ?", employee);
 }
 module.exports = {
   listAllDepartments,
