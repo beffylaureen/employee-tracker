@@ -195,7 +195,7 @@ function addEmployee() {
 
       createEmployee(newEmployee);
       console.log("Added new employee");
-      console.log(JSON.stringify(newEmployee));
+      //console.log(JSON.stringify(newEmployee));
       start();
     })
   })
