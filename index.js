@@ -194,8 +194,8 @@ function addEmployee() {
       }
 
       createEmployee(newEmployee);
-  
-      console.log(`Added Employee ${newEmployee}`);
+      console.log("Added new employee");
+      console.log(JSON.stringify(newEmployee));
       start();
     })
   })
@@ -216,7 +216,7 @@ function editEmployeeRole() {
           value: id
           }))
   
-        inquirer.prompt()[
+        inquirer.prompt([
           {
             name: "name",
             type: "list",
@@ -229,14 +229,15 @@ function editEmployeeRole() {
             message: "Enter the employee's new role ",
             choices: roleOptions
           }
-    ].then((answer) => {
+    ]).then((answer) => {
 
-    let ,updatedRole = {
+    let updatedRole = {
       "employee": answer.employOptions,
       "role": answer.roleOptions
     }
-    createEmployeeRole(newJob);
-    console.log(`Updated employee role ${newJob}`)
+    createEmployeeRole(updatedRole);
+    console.log(`Updated employee role`);
+    //console.log(JSON.stringify(updatedRole));
     start();
   })
 })
