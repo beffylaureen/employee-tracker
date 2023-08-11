@@ -5,7 +5,7 @@ const fs = require('fs');
 const connection = require("./db/connection");
 require("console.table")
 const { listAllDepartments,
-  listAllRoles, listAllEmployees, createDepartment, createRole, createEmployee
+  listAllRoles, listAllEmployees, createDepartment, createRole, createEmployee, createEmployeeRole
 } = require("./db/queries");
 const { displayAllDepartments } = require("./db/displays");
 //const employees = data.map(({ id, first_name, last_name}) => ({ name: first_name + " " + last_name, value: id}));
@@ -26,13 +26,7 @@ function start() {
         'Add a role',
         'Add an employee',
         'Update an employee role',
-        // 'Update an employee manager',
-        // 'View employees by manager',
-        // 'View employees by department',
-        // 'Delete department',
-        // 'Delete role',
-        // 'Delete employee',
-        // 'View a department budget',
+
       ]
     }
   ]).then(response => {
@@ -77,7 +71,7 @@ function start() {
         break;
 
       case "Update an employee role":
-        updateEmployeeRole();
+        editEmployeeRole();
         break;
 
 
@@ -204,27 +198,49 @@ function addEmployee() {
       console.log(`Added Employee ${newEmployee}`);
       start();
     })
-
   })
-
 })
 }
+function editEmployeeRole() {
+  listAllEmployees().then(([employee]) => {
+  
+    const employeeOptions = employee.map(({ id, first_name, last_name, }) => ({
+      name: `${first_name} ${last_name}`,
+      value: id
+        }))
 
-function updateEmployeeRole() {
-  inquirer.prompt()[
-    {
-      name: "name",
-      type: "list",
-      message: "Which employee would you like to update?",
-      choices: employees
+      listAllRoles().then(([roles]) => {
 
+        const roleOptions = roles.map(({ id, title }) => ({
+          name: title,
+          value: id
+          }))
+  
+        inquirer.prompt()[
+          {
+            name: "name",
+            type: "list",
+            message: "Which employee would you like to update?",
+            choices: employeeOptions
+          },
+          {
+            name: "role",
+            type: "list",
+            message: "Enter the employee's new role ",
+            choices: roleOptions
+          }
+    ].then((answer) => {
+
+    let ,updatedRole = {
+      "employee": answer.employOptions,
+      "role": answer.roleOptions
     }
-  ]
-
+    createEmployeeRole(newJob);
+    console.log(`Updated employee role ${newJob}`)
+    start();
+  })
+})
+  })
 }
-
-
-
-
-
+      
 start();
